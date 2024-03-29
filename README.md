@@ -44,50 +44,57 @@ First objective completed! On to the next one.
 
 ## Create a Load Balancer
 
-So for the next task, we need to list the Azure role definitions and assignments using the Linux VM command line. Now I don't have much experience with Linux so I had to google a bunch of commands to see how to create a file, append a file, get a  JSON output, and etc.
+So the last part of this lab is to create the load balancer itself. Now, I'm familiar with F5 Load Balancers from my network background but I've never actually configured one. The process that I used was create a Public IP and the Load Balancer. Afterwards, we'll create the backend pool with the VMs we previously created and then the LB rule and probe. Finally, we can test out the load balancer to make sure it works. 
 
-I created a Notepad file with all the links I used but I'm sure I'll also post the links here as well. 
+First, I had to search for the Microsoft article that outlines how to create LBs which I'll include in this walkthrough ([click here](https://learn.microsoft.com/en-us/azure/load-balancer/quickstart-load-balancer-standard-public-cli)). Lets create the Public IP first. I used the following command to create it.
 
-The first part of this tasks requires us to list the role definitions and output to a file named `roleinfo.json`. So we need to first find out the `az` command to list the role definitions so I found an article on the Microsoft Azure website ([link here](https://learn.microsoft.com/en-US/cli/azure/role/definition?view=azure-cli-latest#az-role-definition-list)). This is where I found the `az role definition list`. I received the following output. 
+![Image](AzureLB8.png)
 
-![Image](ServicePrincipal5.png)
+I named my Public IP `loadbalancerpip` and my command looked something like this: 
 
-If you use that same Microsoft website, you'll see there are additional commands on the left that relate to the `az role` list. So I found the command `az role assignment list --all` to get the role assignments. I wonder why this command required the `--all` argument
-but that's fine. 
+![Image](AzureLB9.png)
 
-![Image](ServicePrincipal6.png)
+Note: I didn't include the `zone` argument because Azure wasn't behaving the way I wanted it to so I left it off. 
 
-We need to put all of this information into a JSON file named `roleinfo.json` so I needed to create that file first. I found an article ([link here](https://phoenixnap.com/kb/how-to-create-a-file-in-linux)) that showed an easy way to create files in the Linux terminal. So I used the command `touch` followed by `roleinfo.json` that would create the file. In order to see the file, you use the `ls` command which lists all the files or folders in a directory (s/o CompTIA A+). 
+I used the following commands to create the load balancer which I named `acgloadbalancer`. 
 
-![Image](ServicePrincipal4.png)
+![Image](AzureLB10.png)
 
-Now that we have the command to list the roles and assignments and we now have the JSON file, lets actually get the output into the file. So I found another article ([link here]((https://askubuntu.com/questions/582536/how-can-i-input-to-a-file-directly-from-the-terminal))) that showed me the `echo` command and how to put that text from that command into a file. To overwrite a file, you use the `>` character. To APPEND a file (add onto the end of a file), you use two of those characters `>>`. I also noticed that you don't need the `echo` command since you're going to get an output from using the two role commands. 
+My command came out like this: 
 
-So I used `az role defintition list --output json > roleinfo.json` to take the output from the role command put it into the roleinfo.json file. Then, I used `az role assignment list -all >> roleinfo.json` to append it onto the end of the file. 
+![Image](AzureLB11.png)
 
-![Image](ServicePrincipal7.png)
+Once you refresh the resource group, both the Public IP (PIP) and the LB should be listed. 
 
-Afterwards, I had to see if the information was actually put into the file. I had to google which command to list the contents of the file ([link here](https://www.liquidweb.com/kb/how-to-display-contents-of-a-file-linux/#:~:text=The%20simplest%20way%20to%20view,the%20%2Fproc%2Fversion%20file.)) and I found the `cat` command. 
+![Image](AzureLB12.png)
 
-![Image](ServicePrincipal8.png)
+Note: These commands were from when I first created the LB so I think the code wasn't working the first time. That's probably why I have a `pip2` in there because my first PIP didn't work. Azure automatically created a new PIP so we'll continue with the new PIP.  
 
-I use `cat roleinfo.json` and received the proper output:
+Now, lets add the VMs to the Backend Pool. I used the following commands to do that (remember, these are all from the Microsoft LB article). 
 
-![Image](ServicePrincipal9.png)
+![Image](AzureLB13.png)
 
-So this concludes the lab but I found it hard to justify my output. From the above picture, you can see the one of the roles and one of the definitions in the output but you can search through the file. I then rediscovered the `vi` command from the follow article ([link here](https://www.geeksforgeeks.org/vi-editor-unix/)) where I was able to navigate the file much more freely. 
+My commands were: 
 
-![Image](ServicePrincipal13.png)
+![Image](AzureLB14.png)
 
-Here is me having more concrete evidence of the role definitions and assignments in the `roleinfo.json` file:
+Now lets create the Health Probe and the LB Rule. I'll include those together since I don't really know much about these two commands. The Health Probe I believe just makes sure the LB is working. I don't know what this rule is for. I either forgot or never knew. 
 
-![Image](ServicePrincipal10.png)
-![Image](ServicePrincipal11.png)
-![Image](ServicePrincipal12.png)
+![Image](AzureLB15.png)
 
-That should suffice. Lab completed!
+![Image](AzureLB16.png)
 
+We can check the creation of the Backend Pool and the Health Probe by using the portal:
 
+![Image](AzureLB17.png)
+
+![Image](AzureLB18.png)
+
+We can check to see if the LB works by putting it's FrontEnd IP into a web browser. You should get this message and it should alternate between the VMs when you refresh the page.
+
+![Image](AzureLB19.png)
+
+Lab completed!
 
 ## Personal Notes
 
