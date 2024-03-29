@@ -98,8 +98,6 @@ Lab completed!
 
 ## Personal Notes
 
-So this lab was way more jarring than the previous very easy 3 labs. I'm not used to Linux, let alone the terminal so I needed to google what commands to use. Also, I didn't want to do a sloppy job so I was trying to find the cleanest way to get the job done. This is where I'm very appreciative of my Cisco CLI experience because command lines can be scary but I know you'll get used to it very quickly the more you use it. It's actually sometimes the easiest way to get jobs done depending on the scale. 
+This lab was actually more difficult than I thought it would be. I actually didn't know how to create the either the Health Prove or the Rule so I looked at the solution. I did the lab weeks ago before I typed all of this out so I wish I could comment on more sticking points but I know I copied down all of the commands so I could recreate it. I also didn't completely finish the lab because my LB didn't cycle through VMs when I refreshed the page. I honestly think this would be WAY easier using the portal instead of the CLI. It was good practice though so I'll take it. Also, I needed help with the `cloud_init` portion because I wasn't aware of how to actually make Azure use that file for the VMs. Definitely learned a lot in this lab. 
 
-With that being said, I'm so glad I completed this lab without any help because it made me feel more confident in being able to figure out Linux when I have to take that next step. I do have some basic Linux experience from handling the time clock interface to make sure those devices were able to get on our network. I'm familiar with `vi editor`. I'm familiar with `ls` but that's about it right now. 
-
-This was fun. Definitely going to add it to the mental cookie jar as to why I deserve to get a cloud role. 
+I also need to run that do-done command into Chat GPT because it felt convoluted and I didn't understand the structure completely. Still a lot to learn!
